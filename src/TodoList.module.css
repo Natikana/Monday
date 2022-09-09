@@ -1,0 +1,11 @@
+.error {
+    border: red solid 2px;
+}
+.errorMessage {
+    color: red;
+}
+.btnColor {
+    background: aquamarine;
+    border-radius: 3px;
+    border: aquamarine 2px solid;
+}

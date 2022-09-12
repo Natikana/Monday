@@ -1,5 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useReducer, useState} from 'react';
 import classes from './TodoList.module.css'
+import {filterReducer, onClickHandlerFilterAC} from "./reducers/filterReducer";
 
 export type TaskProps = {
     id: string,
@@ -13,11 +14,12 @@ export type TodoList = {
     addTask: (valueInput:string) => void
     checkTask: (id:string,check:boolean) => void
 }
-type FilterProps = 'All' | 'Active'| 'Completed'
+export type FilterProps = 'All' | 'Active'| 'Completed'
 
 export const TodoList = (props:TodoList) => {
     const{title,tasks,removeTask, addTask, checkTask} = props
-    const[filter,setFilter] = useState<FilterProps>('All')
+    //const[filter,setFilter] = useState<FilterProps>('All')
+    const[filter,dispatchFilter] = useReducer(filterReducer,'All')
     const[message,setMessage] = useState('')
     const[error,setError] = useState<string | null >('')
 
@@ -27,7 +29,8 @@ export const TodoList = (props:TodoList) => {
     if (filter === 'Completed') filteredTasks = tasks.filter(el => el.isDone)
 
     const onClickHandlerFilter = (nameBtn:FilterProps) => {
-        setFilter(nameBtn)
+        //setFilter(nameBtn)
+        dispatchFilter(onClickHandlerFilterAC(nameBtn))
     }
     const onClickHandlerAddTask = () => {
         if (message.trim() !== '') {

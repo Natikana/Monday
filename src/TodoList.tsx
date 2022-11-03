@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useReducer, useState} from 'react';
 import classes from './TodoList.module.css'
 import {filterReducer, onClickHandlerFilterAC} from "./reducers/filterReducer";
+import {CheckBox} from "./Components/CheckBox";
 
 export type TaskProps = {
     id: string,
@@ -47,8 +48,11 @@ export const TodoList = (props:TodoList) => {
     const onPressEnter = (event:KeyboardEvent<HTMLInputElement>) => {
         return event.key === 'Enter' ? onClickHandlerAddTask() : ''
     }
-    const onChangeHandlerCheck = (id:string, event:ChangeEvent<HTMLInputElement>) => {
+    /*const onChangeHandlerCheck = (id:string, event:ChangeEvent<HTMLInputElement>) => {
         checkTask(id,event.currentTarget.checked)
+    }*/
+    const checkTaskTodo = (id:string,checked:boolean) => {
+        checkTask(id,checked)
     }
     return (
         <div>
@@ -69,10 +73,17 @@ export const TodoList = (props:TodoList) => {
                         removeTask(el.id)
                     }
 
+                    /*const checkTaskTodo = (checked:boolean) => {
+                        checkTask(el.id,checked)
+                    }*/
                     return (
                         <li key={el.id}>
                             <button onClick={onClickRemoveTask}>x</button>
-                            <input type="checkbox" checked={el.isDone} onChange={(event)=>onChangeHandlerCheck(el.id,event)}/>
+                            <CheckBox
+                                callBack={(checked)=>checkTaskTodo(el.id,checked)}
+                                checked={el.isDone}
+                            />
+                            {/*<input type="checkbox" checked={el.isDone} onChange={(event)=>onChangeHandlerCheck(el.id,event)}/>*/}
                             <span>{el.title}</span>
                         </li>
                     )

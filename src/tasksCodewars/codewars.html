@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function countDevelopers(list) {
+        return list.filter(el => el.language === 'JavaScript' && el.continent === 'Europe').length
+    }
+
+    console.log(countDevelopers([
+        { firstName: 'Noah', lastName: 'M.', country: 'Switzerland', continent: 'Europe', age: 19, language: 'JavaScript' },
+        { firstName: 'Maia', lastName: 'S.', country: 'Tahiti', continent: 'Oceania', age: 28, language: 'JavaScript' },
+        { firstName: 'Shufen', lastName: 'L.', country: 'Taiwan', continent: 'Asia', age: 35, language: 'HTML' },
+        { firstName: 'Sumayah', lastName: 'M.', country: 'Tajikistan', continent: 'Asia', age: 30, language: 'CSS' }
+    ]))
+    function greetDevelopers(list) {
+        return list
+            .map(el => ({...el, greeting: `Hi ${el.firstName}, what do you like the most about ${el.language}?`}))
+    }
+
+    /*console.log(greetDevelopers([
+        { firstName: 'Sofia', lastName: 'I.', country: 'Argentina', continent: 'Americas', age: 35, language: 'Java' },
+        { firstName: 'Lukas', lastName: 'X.', country: 'Croatia', continent: 'Europe', age: 35, language: 'Python' },
+        { firstName: 'Madison', lastName: 'U.', country: 'United States', continent: 'Americas', age: 32, language: 'Ruby' }
+    ]))*/
+    function isRubyComing(list) {
+        return list.filter(el => el.language === 'Ruby').length > 0
+    }
+
+    /*console.log(isRubyComing([
+        { firstName: 'Emma', lastName: 'Z.', country: 'Netherlands', continent: 'Europe', age: 29, language: 'Ruby' },
+        { firstName: 'Piotr', lastName: 'B.', country: 'Poland', continent: 'Europe', age: 128, language: 'Javascript' },
+        { firstName: 'Jayden', lastName: 'P.', country: 'Jamaica', continent: 'Americas', age: 42, language: 'JavaScript' }
+    ]))*/
+    function getFirstPython(list) {
+
+        let dev = list.filter(el => el.language === 'Python')
+        return dev.length > 0
+            ? `${dev.map(el => el.firstName).join(' ')}, ${dev.map(el => el.country).join(' ')}`
+            : 'There will be no Python developers'
+    }
+
+    /*console.log(getFirstPython([
+        { firstName: 'Mark', lastName: 'G.', country: 'Scotland', continent: 'Europe', age: 22, language: 'JavaScript' },
+        { firstName: 'Victoria', lastName: 'T.', country: 'Puerto Rico', continent: 'Americas', age: 30, language: 'Python' },
+        { firstName: 'Emma', lastName: 'B.', country: 'Norway', continent: 'Europe', age: 19, language: 'Clojure' }
+    ]))*/
+    function isAgeDiverse(list) {
+        let arrCompared = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        let age = (list.map(el => Math.floor(el.age / 10)).sort((a, b) => a - b))
+        if (age.length !== 10) return false
+        else {
+            let age9 = age.filter(el => el < 10)
+            let age2 = age.filter(el => el >= 10)[0] - age.filter(el => el >= 10)[0].toString().substring(1)
+            let age10 = [...age9, age2]
+            return age10.every((el, index) => arrCompared[index] === el)
+        }
+
+        //let a1 = [1,2,3,4,5,6,7,8,9,10]
+        /* let obj = {}
+         let age = (list.map(el => Math.floor(el.age / 10)).sort((a, b) => a - b))
+         if (age.length !== 10 ) return false
+         else {
+             let age9 = age.filter(el => el < 10)
+             let age2 = age.filter(el => el >= 10)[0] - age.filter(el => el >= 10)[0].toString().substring(1)
+             let age10 = [...age9, age2]
+
+             for (let el of age10) {
+                 if (obj[el] === undefined) obj[el] = 1
+                 else obj[el]++
+             }
+         }
+         return Object.values(obj).every(s => s === 1)*/
+
+    }
+
+    console.log(isAgeDiverse([
+        {firstName: 'Harry', lastName: 'K.', country: 'Brazil', continent: 'Americas', age: 19, language: 'Python'},
+        {
+            firstName: 'Kseniya',
+            lastName: 'T.',
+            country: 'Belarus',
+            continent: 'Europe',
+            age: 29,
+            language: 'JavaScript'
+        },
+        {firstName: 'Jing', lastName: 'X.', country: 'China', continent: 'Asia', age: 39, language: 'Ruby'},
+        {firstName: 'Noa', lastName: 'A.', country: 'Israel', continent: 'Asia', age: 40, language: 'Ruby'},
+        {firstName: 'Andrei', lastName: 'E.', country: 'Romania', continent: 'Europe', age: 59, language: 'C'},
+        {firstName: 'Maria', lastName: 'S.', country: 'Peru', continent: 'Americas', age: 60, language: 'C'},
+        {firstName: 'Lukas', lastName: 'X.', country: 'Croatia', continent: 'Europe', age: 75, language: 'Python'},
+        {firstName: 'Chloe', lastName: 'K.', country: 'Guernsey', continent: 'Europe', age: 88, language: 'Ruby'},
+        {firstName: 'Viktoria', lastName: 'W.', country: 'Bulgaria', continent: 'Europe', age: 98, language: 'PHP'},
+        {firstName: 'Piotr', lastName: 'B.', country: 'Poland', continent: 'Europe', age: 128, language: 'JavaScript'}
+    ]))
+
+    function addUsername(list) {
+        return list.map(el => {
+            return {
+                ...el, username: el.firstName[0].toLowerCase()
+                    + el.firstName.substring(1)
+                    + el.lastName.toLowerCase().substring(0, 1)
+                    + (new Date().getFullYear() - el.age)
+            }
+        })
+    }
+
+    console.log(addUsername([
+        {firstName: 'Emily', lastName: 'N.', country: 'Ireland', continent: 'Europe', age: 30, language: 'Ruby'},
+        {firstName: 'Nor', lastName: 'E.', country: 'Malaysia', continent: 'Asia', age: 20, language: 'Clojure'}
+    ]))
+
+    function getAverageAge(list) {
+        //return Math.round(list.map(el => el.age).reduce((acc,b) => acc + b.,0)/list.length)
+        return Math.round(list.reduce((acc, b) => acc + b.age, 0) / list.length)
+    }
+
+    console.log(getAverageAge([
+        {firstName: 'Maria', lastName: 'Y.', country: 'Cyprus', continent: 'Europe', age: 20, language: 'Java'},
+        {
+            firstName: 'Victoria',
+            lastName: 'T.',
+            country: 'Puerto Rico',
+            continent: 'Americas',
+            age: 21,
+            language: 'Python'
+        },
+    ]))
+
+    function findAdmin(list, lang) {
+        return list.filter(el => el.language === lang && el.githubAdmin === 'yes')
+    }
+
+    console.log(findAdmin([
+        {
+            firstName: 'Harry',
+            lastName: 'K.',
+            country: 'Brazil',
+            continent: 'Americas',
+            age: 22,
+            language: 'JavaScript',
+            githubAdmin: 'yes'
+        },
+        {
+            firstName: 'Kseniya',
+            lastName: 'T.',
+            country: 'Belarus',
+            continent: 'Europe',
+            age: 49,
+            language: 'Ruby',
+            githubAdmin: 'no'
+        },
+        {
+            firstName: 'Jing',
+            lastName: 'X.',
+            country: 'China',
+            continent: 'Asia',
+            age: 34,
+            language: 'JavaScript',
+            githubAdmin: 'yes'
+        },
+        {
+            firstName: 'Piotr',
+            lastName: 'B.',
+            country: 'Poland',
+            continent: 'Europe',
+            age: 128,
+            language: 'JavaScript',
+            githubAdmin: 'no'
+        }
+    ], 'JavaScript'))
+
+    function countLanguages(list) {
+        let obj = {}
+        let keyArray = list.map(el => el.language)
+        for (let el of keyArray) {
+            if (obj[el] === undefined) obj[el] = 1
+            else obj[el]++
+        }
+        let heightNumber = Object.values(obj).sort((a, b) => b - a)[0]
+        let array = Object.values(obj).sort((a, b) => b - a).slice(1)
+        return array.every(el => heightNumber / el <= 2)
+    }
+
+    console.log(countLanguages([
+        {firstName: 'Daniel', lastName: 'J.', country: 'Aruba', continent: 'Americas', age: 42, language: 'Python'},
+        {firstName: 'Kseniya', lastName: 'T.', country: 'Belarus', continent: 'Europe', age: 22, language: 'Ruby'},
+        {firstName: 'Hanna', lastName: 'L.', country: 'Hungary', continent: 'Europe', age: 95, language: 'JavaScript'},
+        {
+            firstName: 'Jayden',
+            lastName: 'P.',
+            country: 'Jamaica',
+            continent: 'Americas',
+            age: 18,
+            language: 'JavaScript'
+        },
+        {firstName: 'Joao', lastName: 'D.', country: 'Portugal', continent: 'Europe', age: 25, language: 'JavaScript'}
+    ]))
+
+    function orderFood(list) {
+        let obj = {}
+        for (let el of list) {
+            if (obj[el.meal] === undefined) {
+                obj[el.meal] = 1
+            } else obj[el.meal]++
+        }
+        return obj
+    }
+
+    console.log(orderFood([
+        {
+            firstName: 'Noah', lastName: 'M.', country: 'Switzerland', continent: 'Europe', age: 19, language: 'C',
+            meal: 'vegetarian'
+        },
+        {
+            firstName: 'Anna',
+            lastName: 'R.',
+            country: 'Liechtenstein',
+            continent: 'Europe',
+            age: 52,
+            language: 'JavaScript',
+            meal: 'standard'
+        },
+        {
+            firstName: 'Ramona', lastName: 'R.', country: 'Paraguay', continent: 'Americas', age: 29, language: 'Ruby',
+            meal: 'vegan'
+        },
+        {
+            firstName: 'George', lastName: 'B.', country: 'England', continent: 'Europe', age: 81, language: 'C',
+            meal: 'vegetarian'
+        },
+    ]))
+
+    function findOddNames(list) {//not solve
+        return list.filter(v=>v.firstName.split``.reduce((a,b)=>a+b.charCodeAt(),0)%2!==0)
+    }
+
+    console.log(findOddNames([
+        {firstName: 'Aba', lastName: 'N.', country: 'Ghana', continent: 'Africa', age: 21, language: 'Python'},
+        {firstName: 'Abb', lastName: 'O.', country: 'Israel', continent: 'Asia', age: 39, language: 'Java'},
+        {firstName: 'Abb', lastName: 'O.', country: 'Israel', continent: 'Asia', age: 39, language: 'Java'}
+    ]))
+
+    function askForMissingDetails(list) {
+
+        let arr = list.filter(el => el.firstName === null ||
+            el.language === null || el.lastName === null ||
+            el.country === null || el.age === null || el.continent === null)
+        if (arr.length === 0) return []
+        else {
+            return arr.map(el => {
+                if (el.language === null) return {
+                    ...el,
+                    question: 'Hi, could you please provide your language.'
+                }
+
+                if (el.firstName === null) return {...el, question: 'Hi, could you please provide your firstName.'}
+                if (el.lastName === null) return {...el, question: 'Hi, could you please provide your lastName.'}
+                if (el.country === null) return {...el, question: 'Hi, could you please provide your country.'}
+                if (el.age === null) return {...el, question: 'Hi, could you please provide your age.'}
+                if (el.continent === null) return {...el, question: 'Hi, could you please provide your continent.'}
+            })
+        }
+    }
+    console.log(askForMissingDetails(
+        [{"firstName":"Kseniya","lastName":"T.","country":null,"continent":"Europe","age":29,"language":"Ruby"},
+            {"firstName":"Amar","lastName":null,"country":"Bosnia and Herzegovina","continent":"Europe","age":32,"language":"Ruby"}]))
+    function sortByLanguage(list) {
+        return list.sort((a, b) => {
+            if (a.language < b.language) return -1
+            if (a.language > b.language) return 1
+            if (a.firstName < b.firstName) return -1
+            if (a.firstName > b.firstName) return 1
+            return 0
+        })
+    }
+
+    console.log(sortByLanguage([
+        { firstName: 'Nikau', lastName: 'R.', country: 'New Zealand', continent: 'Oceania', age: 39, language: 'Ruby' },
+        { firstName: 'Precious', lastName: 'G.', country: 'South Africa', continent: 'Africa', age: 22, language: 'JavaScript' },
+        { firstName: 'Maria', lastName: 'S.', country: 'Peru', continent: 'Americas', age: 30, language: 'C' },
+        { firstName: 'Agustin', lastName: 'V.', country: 'Uruguay', continent: 'Americas', age: 19, language: 'JavaScript' }
+    ]))
+    reverse = function(array) {
+        let arr = []
+        for (let i = array.length-1; i >= 0; i--) {
+            arr.push(array[i])
+        }
+        return arr
+    }
+    console.log(reverse([1,2,3]))
+    let flatten = function (array){
+        return array.length > 1? array.flat(1) : array
+    }
+    console.log(flatten([1,2,3]))
+    //flatten([1,2,3]) // => [1,2,3]
+    //flatten([[1,2,3],["a","b","c"],[1,2,3]])  // => [1,2,3,"a","b","c",1,2,3]
+    //flatten([[[1,2,3]]]) // => [[1,2,3]]
+    Array.range = function(start, count) {
+        let arr = []
+        for (let i = start; i < start + count; i++) {
+            arr.push(i)
+        }
+        return arr
+    }
+    console.log(Array.range(1,0))
+    Array.prototype.sum = function() {
+        let count = Array.range(1,0)
+        console.log(count)
+        return count.reduce((acc,b) => acc + b,0)
+    }
+    console.log(Array.prototype.sum())
+    //(-3,5), [-3,-2,-1,0,1]
+</script>
+</body>
+</html>

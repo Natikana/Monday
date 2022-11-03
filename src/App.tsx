@@ -1,51 +1,69 @@
-import React, {useReducer} from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {v1} from "uuid";
-import { TodoList} from "./TodoList";
-import {addTaskAppAC, checkTaskAppAC, removeTaskAppAC, tasksReducer} from "./reducers/tasksReducer";
+import {Cars, CarsType} from "./cars/Cars";
+import {FilteredMoney, FilteredMoneyPropsType} from "./money/FilteredMoney";
+import {Button} from "./Input/Button";
+import {Input} from "./Input/Input";
+import {Rating, ValuePropsType} from "./rating/Rating";
+import {ControlledOnOff} from "./onOff/ControlledOnOff";
+import {UncontrolledOnOff} from "./onOff/UncontrolledOnOff";
 
 function App() {
-    /*const [tasks, setTask] = useState<TaskProps[]>([
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: false}
-    ])*/
-    const [tasks, dispatchTasks] = useReducer(tasksReducer,[
-        {id: v1(), title: "HTML&CSS", isDone: true},
-        {id: v1(), title: "JS", isDone: true},
-        {id: v1(), title: "ReactJS", isDone: false}
+    const topCars:CarsType[] = [
+        {manufacturer:'BMW', model:'m5cs'},
+        {manufacturer:'Mercedes', model:'e63s'},
+        {manufacturer:'Audi', model:'rs6'}
+    ]
+    const [money, setMoney] = useState<Array<FilteredMoneyPropsType>>([
+        { banknots: 'Dollars', value: 100, number: ' a1234567890' },
+        { banknots: 'Dollars', value: 50, number: ' z1234567890' },
+        { banknots: 'Rubles', value: 100, number: ' w1234567890' },
+        { banknots: 'Dollars', value: 100, number: ' e1234567890' },
+        { banknots: 'Dollars', value: 50, number: ' c1234567890' },
+        { banknots: 'Rubles', value: 100, number: ' r1234567890' },
+        { banknots: 'Dollars', value: 50, number: ' x1234567890' },
+        { banknots: 'Rubles', value: 50, number: ' v1234567890' },
     ])
-    const title = 'What to learn?'
+    const filteredBanknots = () => {
+        setMoney(money)
+    }
+    const onClickHandlerBtn = () => {
+        setMoney(money)
+    }
+    let [a, setA] = useState<number>(1)
+    const onClickHandlerNumber = () => {
+        setA(++a)
+    }
+    const onClickHandlerDelete = () => {
+        setA(0)
+    }
 
-    const removeTaskApp = (id:string) => {
-        //setTask(tasks.filter(el => el.id !== id))
-        dispatchTasks(removeTaskAppAC(id))
+    const [message, setMessage]= useState([
+        {message:'message1'},
+        {message:'message2'},
+        {message:'message3'},
+    ])
+    const [title, setTitle] = useState<string>('')
+    const addMessageApp = (newTitle:string) => {
+        let newMessage = {message:newTitle}
+        setMessage([newMessage,...message])
+        setTitle('')
     }
-    const addTaskApp = (valueInput:string) => {
-        /*let newTask = {id: v1(), title: valueInput, isDone: false}
-        setTask([newTask,...tasks])*/
-        dispatchTasks(addTaskAppAC(valueInput))
-    }
-    const checkTaskApp = (id:string,check:boolean) => {
-        //setTask(tasks.map(el => el.id === id ? {...el,isDone:check} : el))
-        /*let newEl = tasks.find(el=> el.id === id)
-        if (newEl) {
-            newEl.isDone = check
-            setTask([...tasks])
-        }*/
-        dispatchTasks(checkTaskAppAC(id,check))
-    }
+   let [on, setOn] = useState<boolean>(true)
+    let [value, setValue] = useState<ValuePropsType>(0)
+    let [collapsed, setCollapsed] = useState<boolean>(true)
+    let [turn, setTurn] = useState<boolean>(false)
+
+
     return (
-        <div className="App">
-            <TodoList
-                title={title}
-                tasks={tasks}
-                removeTask={removeTaskApp}
-                addTask={addTaskApp}
-                checkTask={checkTaskApp}
-            />
+        <div>
+            <UncontrolledOnOff setOn={setOn} on={on}/> {on.toString()}
+
+            {message.map((el,index) => <div key={index}>
+                <span>{el.message}</span>
+            </div>)}
+
         </div>
     );
 }
-
 export default App;
